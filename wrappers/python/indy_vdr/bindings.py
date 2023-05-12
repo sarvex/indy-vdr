@@ -148,8 +148,7 @@ def do_call(fn_name, *args):
     """Perform a synchronous library function call."""
     lib_fn = getattr(get_library(), fn_name)
     lib_fn.restype = c_int64
-    result = lib_fn(*args)
-    if result:
+    if result := lib_fn(*args):
         raise get_current_error(True)
 
 
@@ -166,8 +165,7 @@ def do_call_async(fn_name, *args, return_type=None, post_process=None):
     cb_res = _create_callback(cb_type, fut, post_process)
     # keep a reference to the callback function to avoid it being freed
     CALLBACKS[fut] = (loop, cb_res)
-    result = lib_fn(*args, cb_res, c_int64(0))  # not making use of callback ID
-    if result:
+    if result := lib_fn(*args, cb_res, c_int64(0)):
         # callback will not be executed
         del CALLBACKS[fut]
         fut.set_exception(get_current_error())

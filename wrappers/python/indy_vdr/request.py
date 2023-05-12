@@ -100,8 +100,5 @@ class Request:
 
     def __repr__(self) -> str:
         """Format the pool instance as a debug string."""
-        if self.handle:
-            status = self.handle
-        else:
-            status = "freed"
+        status = self.handle if self.handle else "freed"
         return f"{self.__class__.__name__}({status})"

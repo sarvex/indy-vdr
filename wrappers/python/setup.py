@@ -1,10 +1,11 @@
 """Module setup."""
 
+
 import runpy
 from setuptools import find_packages, setup
 
 PACKAGE_NAME = "indy_vdr"
-version_meta = runpy.run_path("./{}/version.py".format(PACKAGE_NAME))
+version_meta = runpy.run_path(f"./{PACKAGE_NAME}/version.py")
 VERSION = version_meta["__version__"]
 
 if __name__ == "__main__":

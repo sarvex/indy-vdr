@@ -20,10 +20,7 @@ class LedgerType(IntEnum):
     def from_value(cls, val: Union[int, str, "LedgerType"]) -> "LedgerType":
         """Initialize a `LedgerType` from an integer or string."""
         if isinstance(val, str):
-            if val.isdigit():
-                return cls(int(val))
-            else:
-                return cls[val.upper()]
+            return cls(int(val)) if val.isdigit() else cls[val.upper()]
         elif isinstance(val, int):
             return cls(val)
         elif isinstance(val, LedgerType):
